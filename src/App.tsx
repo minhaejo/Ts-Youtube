@@ -1,8 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 import VideoList from "./components/VideoList/VideoList";
-import { type } from "@testing-library/user-event/dist/type";
+
+import { VideoItemType } from "../src/model/vedio";
+
+import { YOUTUBE_API_KEY } from "./constants/index";
 
 //특정 데이터 뽑아서 맵 돌릴거임 그 후 컴포넌트 랜더링 시킬거임
 //이때 타입스크립트에서 타입정의를 어캐해야할지 고민됨
@@ -11,7 +14,8 @@ import { type } from "@testing-library/user-event/dist/type";
 //그러려고 해도 각 컨텐츠별로 데이터가 달랐음
 //이런문제를 어떤 사고로 접근해야하는지?
 function App() {
-  const [vedios, setVedios] = useState([]);
+  const [videos, setVideos] = useState<VideoItemType[]>([]);
+  //아이템에 대한 데이터만 있으면되니까
 
   useEffect(() => {
     const requestOptions: RequestInit = {
@@ -20,16 +24,16 @@ function App() {
     };
 
     fetch(
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyCy-Iqm1Qrw3KNbTZ_CrE6PnG8RZUpXpPk",
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=${YOUTUBE_API_KEY}`,
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => setVedios(result.items))
+      .then((result) => setVideos(result.items))
       .catch((error) => console.log("error", error));
   }, []);
   return (
     <div className="App">
-      <VideoList />
+      <VideoList videos={videos} />
     </div>
   );
 }
