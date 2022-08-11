@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import VideoItem from "../VideoItem/VideoItem";
-import { VideoItemType } from "../../model/vedio";
+import { VideoItemType } from "../../model/video";
 import styles from "./video_List.module.css";
 
 interface Props {
@@ -12,7 +12,7 @@ const VideoList: FC<Props> = ({ videos }) => {
     <>
       <ul className={styles.videos}>
         {videos.map((vedio) => (
-          <VideoItem vedio={vedio} />
+          <VideoItem vedio={vedio} key={vedio.id} />
         ))}
       </ul>
     </>

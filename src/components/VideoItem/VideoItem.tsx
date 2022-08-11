@@ -1,6 +1,6 @@
 import React from "react";
 import { FC } from "react";
-import { VideoItemType } from "../../model/vedio";
+import { VideoItemType } from "../../model/video";
 import styles from "./video_item.module.css";
 //.모듈임 언더바로 하면 안됨
 interface Props {
