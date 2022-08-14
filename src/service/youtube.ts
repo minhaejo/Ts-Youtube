@@ -4,7 +4,6 @@ import { VideoSearchItem } from "../model/videoSearch";
 export class Youtube {
   key;
   getRequestOptions: RequestInit;
-  //키를 기본속성으로 넣어서 만들 인스턴스들에게 조금 더 유용하게 쓰게하기위함?
   constructor(key: string) {
     this.key = key;
     this.getRequestOptions = {

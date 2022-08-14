@@ -1,13 +1,11 @@
 .header {
   display: flex;
   height: 4rem;
-  padding: 1.6em 1em;
+  padding: 0.8em 1em;
   background: black;
   color: white;
 }
-.title {
-  margin-left: 0.4em;
-}
+
 .logo {
   display: flex;
   align-items: center;
@@ -25,4 +23,5 @@
 .buttonImg {
   height: 100%;
   border-style: none;
+  padding: 0.5em 0.2em;
 }

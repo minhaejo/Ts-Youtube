@@ -4,14 +4,17 @@ import { VideoItemType } from "../../model/video";
 import styles from "./video_item.module.css";
 //.모듈임 언더바로 하면 안됨
 interface Props {
-  vedio: VideoItemType;
+  video: VideoItemType;
+  onVideoClick: (video: any) => void;
+  display: string;
 }
 
-const VideoItem: FC<Props> = ({ vedio }) => {
+const VideoItem: FC<Props> = ({ video, onVideoClick, display }) => {
   // const {} = vedio
+  const displayType = display === "list" ? styles.list : styles.grid;
   const {
     snippet: { title, thumbnails, channelTitle },
-  } = vedio;
+  } = video;
 
   // video > 1 ,2 ,3 > 2> 2-1 , 2-2 ,
   // const {
@@ -19,7 +22,12 @@ const VideoItem: FC<Props> = ({ vedio }) => {
   // } = vedio;
 
   return (
-    <li className={styles.container}>
+    <li
+      className={`${styles.container} ${displayType}`}
+      onClick={() => {
+        onVideoClick(video);
+      }}
+    >
       <div className={styles.video}>
         <img
           className={styles.thumbnail}

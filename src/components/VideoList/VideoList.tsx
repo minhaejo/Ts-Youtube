@@ -5,14 +5,21 @@ import styles from "./video_List.module.css";
 
 interface Props {
   videos: VideoItemType[];
+  onVideoClick: (video: any) => void;
+  display: string;
 }
 
-const VideoList: FC<Props> = ({ videos }) => {
+const VideoList: FC<Props> = ({ videos, onVideoClick, display }) => {
   return (
     <>
       <ul className={styles.videos}>
-        {videos.map((vedio) => (
-          <VideoItem vedio={vedio} key={vedio.id} />
+        {videos.map((video) => (
+          <VideoItem
+            video={video}
+            key={video.id}
+            onVideoClick={onVideoClick}
+            display={display}
+          />
         ))}
       </ul>
     </>

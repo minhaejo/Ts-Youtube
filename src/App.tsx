@@ -4,6 +4,7 @@ import VideoList from "./components/VideoList/VideoList";
 import VideoSearch from "./components/VideoSearch/VideoSearch";
 import { VideoItemType } from "../src/model/video";
 import { Youtube } from "./service/youtube";
+import VideoDetail from "./components/VideoDetail/VideoDetail";
 
 interface Props {
   youtube: Youtube;
@@ -12,12 +13,22 @@ interface Props {
 const App: FC<Props> = ({ youtube }) => {
   //초기배열
   const [videos, setVideos] = useState<VideoItemType[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItemType | null>(
+    null
+  );
 
+  const selectVideo = (video: VideoItemType) => {
+    setSelectedVideo(video);
+  };
   const search = (qeury: string) => {
     youtube
       .search(qeury) //
-      .then((video) => setVideos(video));
+      .then((video) => {
+        setVideos(video);
+        setSelectedVideo(null);
+      });
   };
+
   //인풋벨류
   //처음 로딩데이터
   useEffect(() => {
@@ -27,7 +38,20 @@ const App: FC<Props> = ({ youtube }) => {
   return (
     <div className={styles.app}>
       <VideoSearch onSearch={search} />
-      <VideoList videos={videos} />
+      <section className={styles.content}>
+        {selectedVideo && (
+          <div className={styles.detail}>
+            <VideoDetail video={selectedVideo} />
+          </div>
+        )}
+        <div className={styles.list}>
+          <VideoList
+            videos={videos}
+            onVideoClick={selectVideo}
+            display={selectedVideo ? "list" : "grid"}
+          />
+        </div>
+      </section>
     </div>
   );
 };
