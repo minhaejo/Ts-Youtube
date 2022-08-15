@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./App.module.css";
 import VideoList from "./components/VideoList/VideoList";
 import VideoSearch from "./components/VideoSearch/VideoSearch";
@@ -12,6 +12,7 @@ interface Props {
 //유튜브 > 인덱스 >> 앱 >> 써치로
 const App: FC<Props> = ({ youtube }) => {
   //초기배열
+
   const [videos, setVideos] = useState<VideoItemType[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<VideoItemType | null>(
     null
@@ -20,15 +21,22 @@ const App: FC<Props> = ({ youtube }) => {
   const selectVideo = (video: VideoItemType) => {
     setSelectedVideo(video);
   };
-  const search = (qeury: string) => {
-    youtube
-      .search(qeury) //
-      .then((video) => {
-        setVideos(video);
-        setSelectedVideo(null);
-      });
-  };
+  const search = useCallback(
+    (qeury: string) => {
+      youtube
+        .search(qeury) //
+        .then((video) => {
+          setVideos(video);
+          setSelectedVideo(null);
+        });
+    },
+    [youtube]
+  );
 
+  const handleLogoClick = () => {
+    search("");
+    setSelectedVideo(null);
+  };
   //인풋벨류
   //처음 로딩데이터
   useEffect(() => {
@@ -37,7 +45,7 @@ const App: FC<Props> = ({ youtube }) => {
   //
   return (
     <div className={styles.app}>
-      <VideoSearch onSearch={search} />
+      <VideoSearch onSearch={search} onClick={handleLogoClick} />
       <section className={styles.content}>
         {selectedVideo && (
           <div className={styles.detail}>

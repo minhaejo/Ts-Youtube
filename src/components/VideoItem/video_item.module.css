@@ -28,10 +28,15 @@
 .metadata {
   margin-left: 0.2em;
 }
-.title,
+.title {
+  font-size: 1rem;
+  margin: 0 0 0 0.1em;
+  font-weight: 400;
+}
 .channel {
   font-size: 0.8rem;
-  margin: 0;
+
+  margin: 0.7em 0 0 0.3em;
 }
 .channel {
   font-size: 0.6rem;

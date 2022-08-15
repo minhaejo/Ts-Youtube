@@ -1,10 +1,11 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, memo, useRef, useState } from "react";
 import styles from "./video_search.module.css";
 
 interface Props {
   onSearch: (qeury: string) => void;
+  onClick: () => void;
 }
-const VideoSearch: FC<Props> = ({ onSearch }) => {
+const VideoSearch: FC<Props> = memo(({ onSearch, onClick }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = () => {
@@ -14,9 +15,6 @@ const VideoSearch: FC<Props> = ({ onSearch }) => {
     }
   };
 
-  const onClick = () => {
-    handleSearch();
-  };
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
@@ -24,7 +22,7 @@ const VideoSearch: FC<Props> = ({ onSearch }) => {
   };
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
+      <div className={styles.logo} onClick={onClick}>
         <img className={styles.img} src="/images/logo.png " alt="logo" />
         <h1 className={styles.title}>Youtube</h1>
       </div>
@@ -40,6 +38,6 @@ const VideoSearch: FC<Props> = ({ onSearch }) => {
       </button>
     </header>
   );
-};
+});
 
 export default VideoSearch;

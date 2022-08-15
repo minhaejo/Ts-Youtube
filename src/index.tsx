@@ -5,8 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Youtube } from "./service/youtube";
 import { YOUTUBE_API_KEY } from "./constants";
+import axios from "axios";
 
-const youtube = new Youtube(YOUTUBE_API_KEY!);
+const httpClient = axios.create({
+  baseURL: "https://youtube.googleapis.com/youtube/v3", //https://youtube.googleapis.com/youtube/v3
+  params: { key: YOUTUBE_API_KEY! }, //key=${YOUTUBE_API_KEY}
+});
+const youtube = new Youtube(httpClient);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

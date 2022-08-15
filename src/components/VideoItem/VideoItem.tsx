@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FC } from "react";
 import { VideoItemType } from "../../model/video";
 import styles from "./video_item.module.css";
@@ -8,18 +8,13 @@ interface Props {
   onVideoClick: (video: any) => void;
   display: string;
 }
-
-const VideoItem: FC<Props> = ({ video, onVideoClick, display }) => {
+//프롭이 바뀌지 않는다면  // 다시 바뀔 필요가 없다면 memo 사용
+const VideoItem: FC<Props> = memo(({ video, onVideoClick, display }) => {
   // const {} = vedio
   const displayType = display === "list" ? styles.list : styles.grid;
   const {
     snippet: { title, thumbnails, channelTitle },
   } = video;
-
-  // video > 1 ,2 ,3 > 2> 2-1 , 2-2 ,
-  // const {
-  //   snippet: { title, thumbnails },
-  // } = vedio;
 
   return (
     <li
@@ -41,6 +36,6 @@ const VideoItem: FC<Props> = ({ video, onVideoClick, display }) => {
       </div>
     </li>
   );
-};
+});
 
 export default VideoItem;

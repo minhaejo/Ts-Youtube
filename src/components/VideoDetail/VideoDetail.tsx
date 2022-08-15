@@ -12,6 +12,7 @@ const VideoDetail: FC<Props> = ({ video, video: { snippet } }) => {
         className={styles.video}
         data-type="text/html"
         width="100%"
+        title="Youtube Video Player"
         height="500px"
         src={`https://www.youtube.com/embed/${video.id}`}
         frameBorder="0"
