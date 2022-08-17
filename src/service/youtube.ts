@@ -1,7 +1,7 @@
 // import { Youtube } from './youtube';
-import { YOUTUBE_API_KEY } from "../constants";
+
 import { VideoSearchItem } from "../model/videoSearch";
-import axios, { AxiosInstance } from "axios";
+import { AxiosInstance } from "axios";
 
 export class Youtube {
   youtube: AxiosInstance;
